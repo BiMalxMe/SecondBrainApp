@@ -80,8 +80,9 @@ app.get("/api/v1/content",userMiddleware,async(req,res)=>{
 app.delete("/api/v1/content", userMiddleware, async (req, res) => {
     const contentId = req.body.contentId;
 
-    await ContentModel.deleteMany({
-        contentId,
+    await contentModel.deleteMany({
+        _id:contentId,
+        // @ts-ignore
         userId: req.userId
     })
 
@@ -94,6 +95,8 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
     const share = req.body.share;
     if (share) {
             const existingLink = await LinkModel.findOne({
+                        // @ts-ignore
+
                 userId: req.userId
             });
 
@@ -103,9 +106,11 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
                 })
                 return;
             }
+                    // @ts-ignore
             const hash = random(10);
             await LinkModel.create({
-                userId: req.userId,
+                        // @ts-ignore
+            userId: req.userId,
                 hash: hash
             })
 
@@ -114,6 +119,7 @@ app.post("/api/v1/brain/share", userMiddleware, async (req, res) => {
             })
     } else {
         await LinkModel.deleteOne({
+                    // @ts-ignore
             userId: req.userId
         });
 
@@ -137,12 +143,12 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
         return;
     }
     // userId
-    const content = await ContentModel.find({
+    const content = await contentModel.find({
         userId: link.userId
     })
 
     console.log(link);
-    const user = await UserModel.findOne({
+    const user = await userModel.findOne({
         _id: link.userId
     })
 

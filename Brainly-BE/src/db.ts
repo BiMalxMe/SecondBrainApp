@@ -1,4 +1,4 @@
-import mongoose, { model, Model, Schema } from "mongoose";
+import mongoose, { model, Schema } from "mongoose";
 
 mongoose.connect("mongodb+srv://BiMalxMw:papa9814479922@cluster0.8t0ty.mongodb.net/brainly")
 const userSchema=new Schema({
