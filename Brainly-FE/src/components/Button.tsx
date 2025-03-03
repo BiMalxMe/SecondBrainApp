@@ -6,7 +6,8 @@ interface ButtonProps {
   text: string;
   startIcon?: ReactElement;
   endIcon?: ReactElement;
-  onclick: () => void;
+  onclick?: () => void;
+  fullwidth?:Boolean;
 }
 
 const variantStyle = {
@@ -28,7 +29,7 @@ export const Button = (props: ButtonProps) => {
     onClick={props.onclick}
       className={`${variantStyle[props.variant]} ${defaultStyles} ${
         sizeStyles[props.size]
-      } cursor-pointer`}
+      } cursor-pointer ${props.fullwidth?"flex w-full justify-center items-center ": ""}  hover:bg-blue-600 hover:scale-105 transition-transform duration-300 ease-in-out `}
     >
       <div className="pr-2">{props.startIcon}</div>
       {props.text}
