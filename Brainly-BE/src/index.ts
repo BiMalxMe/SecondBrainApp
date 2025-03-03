@@ -1,11 +1,16 @@
 import express from "express";
-import mongoose from "mongoose";
 import jwt from "jsonwebtoken"
 import { contentModel, LinkModel, userModel } from "./db";
 import { userMiddleware } from "./middleware";
-
+import cors from "cors"
 const app=express()
 app.use(express.json())
+app.use(cors({
+    origin: "http://localhost:5173", // Allow frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true // Allow cookies & auth headers
+}));
 const jwtPassword = "454354"
 
 app.post("/api/v1/signup",async(req,res)=>{
@@ -53,12 +58,14 @@ app.post("/api/v1/signin",async(req,res)=>{
 app.post("/api/v1/content",userMiddleware,async(req,res)=>{
     const link = req.body.link;
     const type = req.body.type;
+    const title = req.body.title;
         
     await contentModel.create({
         link,
         type,
         //@ts-ignore
         userId : req.userId,
+        title,
         tags : []
 })
 

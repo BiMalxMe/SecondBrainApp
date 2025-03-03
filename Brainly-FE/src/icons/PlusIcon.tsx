@@ -1,7 +1,6 @@
 import { IconProps , IconnVariants } from ".";
 
 export const PlusIcon = (props: IconProps) => {
-  console.log("Rendering the Plus Icon");
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
